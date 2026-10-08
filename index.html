@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Residential Community Management System</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<div id="loginPage" class="login-page">
+
+    <div class="login-box">
+
+        <h1>🏢 Residential Community</h1>
+
+        <p class="login-subtitle">
+            Management System
+        </p>
+
+
+        <div class="login-tabs">
+
+            <button onclick="showResidentLogin()">
+                Resident Login
+            </button>
+
+            <button onclick="showAdminLogin()">
+                Admin Login
+            </button>
+
+        </div>
+
+
+        <!-- RESIDENT LOGIN -->
+
+        <div id="residentLoginBox">
+
+            <h2>Resident Login</h2>
+
+            <form onsubmit="residentLogin(); return false;">
+
+                <label>Resident ID</label>
+
+                <input
+                    type="text"
+                    id="residentLoginId"
+                    placeholder="Example: R001"
+                    required
+                >
+
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="residentLoginPassword"
+                    placeholder="Enter password"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    class="main-button"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <p
+                id="residentLoginMessage"
+                class="message"
+            ></p>
+
+
+            <button
+                class="secondary-button"
+                onclick="showSignup()"
+            >
+                Create New Account
+            </button>
+
+        </div>
+
+
+        <!-- ADMIN LOGIN -->
+
+        <div
+            id="adminLoginBox"
+            style="display: none;"
+        >
+
+            <h2>Admin Login</h2>
+
+            <form onsubmit="adminLogin(); return false;">
+
+                <label>Admin ID</label>
+
+                <input
+                    type="text"
+                    id="adminLoginId"
+                    placeholder="ADMIN"
+                    required
+                >
+
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="adminLoginPassword"
+                    placeholder="Enter admin password"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    class="admin-button"
+                >
+                    Admin Login
+                </button>
+
+            </form>
+
+
+            <p
+                id="adminLoginMessage"
+                class="message"
+            ></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SIGNUP PAGE
+===================================================== -->
+
+<div
+    id="signupPage"
+    class="login-page"
+    style="display: none;"
+>
+
+    <div class="login-box">
+
+        <h1>📝 Create Account</h1>
+
+        <p class="login-subtitle">
+            Register as a new resident
+        </p>
+
+
+        <form onsubmit="createAccount(); return false;">
+
+            <label>Full Name</label>
+
+            <input
+                type="text"
+                id="newName"
+                placeholder="Enter your name"
+                required
+            >
+
+
+            <label>Flat Number</label>
+
+            <input
+                type="text"
+                id="newFlat"
+                placeholder="Example: C-304"
+                required
+            >
+
+
+            <label>Phone Number</label>
+
+            <input
+                type="text"
+                id="newPhone"
+                placeholder="10 digit phone number"
+                required
+            >
+
+
+            <label>Create Password</label>
+
+            <input
+                type="password"
+                id="newPassword"
+                placeholder="Create password"
+                required
+            >
+
+
+            <label>Confirm Password</label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm password"
+                required
+            >
+
+
+            <button
+                type="submit"
+                class="main-button"
+            >
+                Create Account
+            </button>
+
+        </form>
+
+
+        <p
+            id="signupMessage"
+            class="message"
+        ></p>
+
+
+        <button
+            class="secondary-button"
+            onclick="showResidentLogin()"
+        >
+            Back to Login
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     RESIDENT DASHBOARD
+===================================================== -->
+
+<div
+    id="residentPage"
+    style="display: none;"
+>
+
+
+    <nav>
+
+        <div class="nav-title">
+            🏢 Residential Community
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="#residentHome">
+                Home
+            </a>
+
+            <a href="#residentMaintenance">
+                Maintenance
+            </a>
+
+            <a href="#residentFacilities">
+                Facilities
+            </a>
+
+            <a href="#residentNotices">
+                Notices
+            </a>
+
+            <a href="#residentGuidelines">
+                Guidelines
+            </a>
+
+            <button onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- RESIDENT HOME -->
+
+    <section
+        id="residentHome"
+        class="hero"
+    >
+
+        <h1 id="residentWelcome">
+            Welcome Resident
+        </h1>
+
+        <p>
+            Manage your community services easily.
+        </p>
+
+
+        <div class="resident-info">
+
+            <div class="info-card">
+
+                <h3>Resident ID</h3>
+
+                <p id="myResidentId"></p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <h3>Name</h3>
+
+                <p id="myResidentName"></p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <h3>Flat Number</h3>
+
+                <p id="myResidentFlat"></p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <h3>Phone</h3>
+
+                <p id="myResidentPhone"></p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- RESIDENT MAINTENANCE -->
+
+    <section id="residentMaintenance">
+
+        <h2>🔧 Submit Maintenance Request</h2>
+
+        <p class="section-description">
+
+            Submit a maintenance request for your flat.
+            Only the admin can view submitted requests.
+
+        </p>
+
+
+        <form
+            id="maintenanceForm"
+            onsubmit="submitMaintenance(); return false;"
+        >
+
+            <label>Request Type</label>
+
+            <select
+                id="maintenanceType"
+                required
+            >
+
+                <option value="">
+                    Select Request Type
+                </option>
+
+                <option>Plumbing</option>
+
+                <option>Electrical</option>
+
+                <option>Cleaning</option>
+
+                <option>Security</option>
+
+                <option>Other</option>
+
+            </select>
+
+
+            <label>Description</label>
+
+            <textarea
+                id="maintenanceDescription"
+                placeholder="Describe your problem"
+                required
+            ></textarea>
+
+
+            <button
+                type="submit"
+                class="main-button"
+            >
+                Submit Request
+            </button>
+
+        </form>
+
+    </section>
+
+
+
+    <!-- RESIDENT FACILITIES -->
+
+    <section id="residentFacilities">
+
+        <h2>🏊 Community Facilities</h2>
+
+
+        <div class="facility-grid">
+
+            <div class="facility-card">
+                🏊
+                <h3>Swimming Pool</h3>
+                <p>Available</p>
+            </div>
+
+            <div class="facility-card">
+                🏋️
+                <h3>Gym</h3>
+                <p>Available</p>
+            </div>
+
+            <div class="facility-card">
+                🏠
+                <h3>Club House</h3>
+                <p>Available</p>
+            </div>
+
+            <div class="facility-card">
+                🏀
+                <h3>Basketball Court</h3>
+                <p>Available</p>
+            </div>
+
+            <div class="facility-card">
+                🏸
+                <h3>Badminton Court</h3>
+                <p>Available</p>
+            </div>
+
+            <div class="facility-card">
+                📚
+                <h3>Library</h3>
+                <p>Available</p>
+            </div>
+
+        </div>
+
+
+        <h3>Book a Facility</h3>
+
+
+        <form
+            id="bookingForm"
+            onsubmit="bookFacility(); return false;"
+        >
+
+            <label>Facility</label>
+
+            <select
+                id="facilityName"
+                required
+            >
+
+                <option value="">
+                    Select Facility
+                </option>
+
+                <option>Swimming Pool</option>
+
+                <option>Gym</option>
+
+                <option>Club House</option>
+
+                <option>Basketball Court</option>
+
+                <option>Badminton Court</option>
+
+                <option>Library</option>
+
+                <option>Community Hall</option>
+
+                <option>Garden</option>
+
+            </select>
+
+
+            <label>Date</label>
+
+            <input
+                type="date"
+                id="bookingDate"
+                required
+            >
+
+
+            <label>Time</label>
+
+            <input
+                type="time"
+                id="bookingTime"
+                required
+            >
+
+
+            <button
+                type="submit"
+                class="main-button"
+            >
+                Book Facility
+            </button>
+
+        </form>
+
+    </section>
+
+
+
+    <!-- RESIDENT NOTICES -->
+
+    <section id="residentNotices">
+
+        <h2>📢 Community Notices</h2>
+
+
+        <div class="notice-card">
+
+            <h3>Water Supply Maintenance</h3>
+
+            <p>
+                Water supply maintenance will be
+                conducted on 10 October 2026.
+            </p>
+
+        </div>
+
+
+        <div class="notice-card">
+
+            <h3>Community Meeting</h3>
+
+            <p>
+                Community meeting will be held
+                on 12 October 2026.
+            </p>
+
+        </div>
+
+
+        <div class="notice-card">
+
+            <h3>Parking Area Cleaning</h3>
+
+            <p>
+                Parking area cleaning is scheduled
+                for 15 October 2026.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- RESIDENT GUIDELINES -->
+
+    <section id="residentGuidelines">
+
+        <h2>📋 Community Guidelines</h2>
+
+        <ul class="guidelines">
+
+            <li>
+                Maintain cleanliness in common areas.
+            </li>
+
+            <li>
+                Follow community parking rules.
+            </li>
+
+            <li>
+                Keep noise levels low after 10 PM.
+            </li>
+
+            <li>
+                Use community facilities responsibly.
+            </li>
+
+        </ul>
+
+    </section>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     ADMIN DASHBOARD
+===================================================== -->
+
+<div
+    id="adminPage"
+    style="display: none;"
+>
+
+
+    <nav class="admin-nav">
+
+        <div class="nav-title">
+            👨‍💼 Admin Dashboard
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="#adminHome">
+                Dashboard
+            </a>
+
+            <a href="#adminResidents">
+                Residents
+            </a>
+
+            <a href="#adminMaintenance">
+                Maintenance
+            </a>
+
+            <a href="#adminBookings">
+                Bookings
+            </a>
+
+            <button onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ADMIN HOME -->
+
+    <section
+        id="adminHome"
+        class="admin-hero"
+    >
+
+        <h1>
+            Welcome, Admin 👨‍💼
+        </h1>
+
+        <p>
+            Manage the residential community
+            from one dashboard.
+        </p>
+
+
+        <div class="admin-stats">
+
+            <div class="stat-card">
+
+                <h3>Total Residents</h3>
+
+                <p id="totalResidents">
+                    0
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>Maintenance Requests</h3>
+
+                <p id="totalMaintenance">
+                    0
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>Facility Bookings</h3>
+
+                <p id="totalBookings">
+                    0
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ADMIN RESIDENTS -->
+
+    <section id="adminResidents">
+
+        <h2>👥 Resident List</h2>
+
+        <p class="section-description">
+
+            This information is visible only to the admin.
+
+        </p>
+
+
+        <input
+            type="text"
+            id="adminResidentSearch"
+            placeholder="Search resident..."
+            onkeyup="searchAdminResidents()"
+        >
+
+
+        <div class="table-container">
+
+            <table id="adminResidentTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Resident ID</th>
+
+                        <th>Name</th>
+
+                        <th>Flat</th>
+
+                        <th>Phone</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="adminResidentTableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ADMIN MAINTENANCE -->
+
+    <section id="adminMaintenance">
+
+        <h2>🔧 Maintenance Requests</h2>
+
+        <p class="section-description">
+
+            All maintenance requests submitted
+            by residents are visible here.
+
+        </p>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Request ID</th>
+
+                        <th>Resident</th>
+
+                        <th>Flat</th>
+
+                        <th>Type</th>
+
+                        <th>Description</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="maintenanceTableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ADMIN BOOKINGS -->
+
+    <section id="adminBookings">
+
+        <h2>🏢 Facility Bookings</h2>
+
+        <p class="section-description">
+
+            All facility bookings made by residents.
+
+        </p>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Booking ID</th>
+
+                        <th>Resident</th>
+
+                        <th>Flat</th>
+
+                        <th>Facility</th>
+
+                        <th>Date</th>
+
+                        <th>Time</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="bookingTableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+
+<footer>
+
+    <p>
+        Residential Community Management System
+    </p>
+
+</footer>
+
+
+<script src="app.js"></script>
+
+</body>
+
+</html>
